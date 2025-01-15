@@ -1,4 +1,4 @@
-import { $host } from '@/api/index';
+import { $host, $authHost } from '@/api/index';
 
 export const registerApi = async (login: string, password: string) => {
   const { data } = await $host.post('api/v1/auth/register', { login, password });
@@ -16,5 +16,5 @@ export const refreshApi = async (refreshToken: string) => {
 }
 
 export const logoutApi = async () => {
-  return await $host.post('api/v1/auth/logout');
+  return await $authHost.post('api/v1/auth/logout');
 }
