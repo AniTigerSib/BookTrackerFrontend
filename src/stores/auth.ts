@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
   const password = ref('');
   const authError = ref('');
   const loading = ref(!!accessToken.value);
+  const isLoggedIn = ref(!!accessToken.value);
 
   const register = async () => {
     try {
@@ -29,6 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
       refreshToken.value = data.refreshToken;
       localStorage.setItem('access', data.accessToken);
       localStorage.setItem('refresh', data.refreshToken);
+      isLoggedIn.value = true;
     } catch (e: any) {
       authError.value = e.response.data || 'Something went wrong';
     } finally {
@@ -37,16 +39,20 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const logout = async (sendRequest: boolean) => {
+    loading.value = false;
     accessToken.value = undefined;
     refreshToken.value = undefined;
-    loading.value = false;
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
+    isLoggedIn.value = false;
     if (sendRequest) {
       try {
+        loading.value = true;
         await logoutApi();
       } catch (e) {
         console.log(e);
+      } finally {
+        loading.value = false;
       }
     }
   }
@@ -58,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
     password,
     authError,
     loading,
+    isLoggedIn,
     register,
     login,
     logout,
