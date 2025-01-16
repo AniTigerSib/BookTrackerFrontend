@@ -42,33 +42,24 @@ export default defineComponent({
   position: relative;
   max-width: 680px;
   width: 100%;
-  height: 57px;
+  height: 3.6rem;
   border: 2px solid var(--color-border);
-  border-radius: 12px;
-  padding: 15.5px 16px;
+  border-radius: 0.8rem;
+  padding: 0.95rem 1rem;
   display: flex;
   align-items: center;
-  transition: border-color 0.1s;
+  transition: border-color 0.4s;
   background-color: var(--color-background-dark);
 }
 
 .search-container:hover {
   border-color: var(--color-border-hover);
-  //transition: border-color 0.8s;
-
-  .search-input::placeholder {
-    color: var(--color-text-focused);
-  }
+  transition: border-color 0.4s;
 }
 
 .search-container:focus-within {
   border-color: var(--color-border-hover);
-  //transition: border-color 0.8s;
-
-  .search-input::placeholder {
-    color: var(--color-text-focused);
-    transition: color 0.2s;
-  }
+  transition: border-color 0.4s;
 }
 
 .search-icon {
@@ -81,7 +72,7 @@ export default defineComponent({
   width: 100%;
   border: none;
   outline: none;
-  font-size: 18px;
+  font-size: 1.13rem;
   background: transparent;
   color: var(--color-text);
 

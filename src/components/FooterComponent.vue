@@ -6,6 +6,7 @@
       </div>
       <div class="footer__links">
         <p>Terms of use</p>
+        <p>I</p>
         <p>Privacy policy</p>
       </div>
     </div>

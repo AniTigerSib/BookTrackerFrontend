@@ -51,6 +51,10 @@ const authStore = useAuthStore();
   &__menu {
     display: flex;
     gap: 1rem;
+
+    svg {
+      cursor: pointer;
+    }
   }
 }
 </style>

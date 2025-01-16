@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import { defineStore } from "pinia";
 import {loginApi, logoutApi, registerApi} from "@/api/user.ts";
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -8,15 +8,37 @@ export const useAuthStore = defineStore('auth', () => {
   const username = ref('');
   const password = ref('');
   const authError = ref('');
+  const isLoginIncorrect = ref(false);
   const loading = ref(!!accessToken.value);
   const isLoggedIn = ref(!!accessToken.value);
+
+  // Флаг для отслеживания первого редактирования
+  const isFirstEdit = ref(true);
+
+  // Функция сброса ошибок
+  const resetErrors = () => {
+    if (isFirstEdit.value) {
+      authError.value = '';
+      isLoginIncorrect.value = false;
+      isFirstEdit.value = false;
+    }
+  };
+
+  // Отслеживаем изменения username и password
+  watch([username, password], () => {
+    resetErrors();
+  });
 
   const register = async () => {
     try {
       loading.value = true;
+      isFirstEdit.value = true;
       await registerApi(username.value, password.value);
     } catch (e: any) {
       authError.value = e.response.data || 'Something went wrong';
+      if (e.response.status !== 500) {
+        isLoginIncorrect.value = true;
+      }
     } finally {
       loading.value = false;
     }
@@ -25,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async () => {
     try {
       loading.value = true;
+      isFirstEdit.value = true;
       const { data } = await loginApi(username.value, password.value);
       accessToken.value = data.accessToken;
       refreshToken.value = data.refreshToken;
@@ -33,6 +56,9 @@ export const useAuthStore = defineStore('auth', () => {
       isLoggedIn.value = true;
     } catch (e: any) {
       authError.value = e.response.data || 'Something went wrong';
+      if (e.response.status !== 500) {
+        isLoginIncorrect.value = true;
+      }
     } finally {
       loading.value = false;
     }
@@ -40,6 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = async (sendRequest: boolean) => {
     loading.value = false;
+    isFirstEdit.value = false;
     accessToken.value = undefined;
     refreshToken.value = undefined;
     localStorage.removeItem('access');
@@ -65,6 +92,7 @@ export const useAuthStore = defineStore('auth', () => {
     authError,
     loading,
     isLoggedIn,
+    isLoginIncorrect,
     register,
     login,
     logout,
