@@ -2,16 +2,16 @@
   <div class="book-card">
     <div class="book-card__cover-container">
       <img
-        :src="book.coverUrl"
-        :alt="book.title"
+        :src="book.cover"
+        :alt="book.name"
         class="book-card__cover"
         @error="handleImageError"
       >
       <div class="book-card__rating">
-        <p class="book-card__rating-value">{{ book.rating }}</p>
+        <p class="book-card__rating-value">{{ book.avgRating }}</p>
       </div>
     </div>
-    <h3 class="book-card__title">{{ book.title }}</h3>
+    <h3 class="book-card__title">{{ book.name }}</h3>
   </div>
 </template>
 

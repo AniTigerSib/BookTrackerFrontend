@@ -35,24 +35,24 @@ onMounted(async () => {
     name: 'Популярное',
     books: [{
       id: 1,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 8.1
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }, {
       id: 2,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 8.1
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }, {
       id: 3,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 8.1
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }, {
       id: 4,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 8.1
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }]
   },
     {
@@ -60,29 +60,29 @@ onMounted(async () => {
     name: 'Не самое популярное',
     books: [{
       id: 5,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 5
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 5
     }, {
       id: 6,
-      title: 'Думай медленно решай быстро',
-      coverUrl: 'https://cdn.litres.ru/pub/c/cover_415/21636519.webp',
-      rating: 7.2
+      name: 'Думай медленно решай быстро',
+      cover: 'https://cdn.litres.ru/pub/c/cover_415/21636519.webp',
+      avgRating: 7.2
     }, {
       id: 7,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 5
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 5
     }, {
       id: 8,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 5
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }, {
       id: 9,
-      title: 'Война и мир',
-      coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
-      rating: 5
+      name: 'Война и мир',
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      avgRating: 8.1
     }]
   });
 })
@@ -92,7 +92,7 @@ onMounted(async () => {
   <div class="home-view">
     <div class="home-view__item" v-for="category in booksByCat" :key="category.id">
       <div class="item__title">
-        <p v-text="category.name" />
+        <p>{{ category.name }}</p>
       </div>
       <div class="item__books-container">
         <BookCard v-for="book in category.books" :key="book.id" :book="book" />
@@ -103,16 +103,16 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .home-view {
-  margin-top: 40px;
+  margin-top: 2.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 6.25rem;
 
   &__item {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 2.5rem;
   }
 }
 
@@ -128,8 +128,8 @@ onMounted(async () => {
     //gap: 30px 10px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
-    column-gap: 10px;
-    row-gap: 40px;
+    column-gap: 0.625rem;
+    row-gap: 2.5rem;
     width: 100%;
   }
 }

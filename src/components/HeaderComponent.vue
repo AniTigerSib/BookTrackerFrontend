@@ -48,6 +48,7 @@ const authStore = useAuthStore();
     a {
       color: var(--color-text);
       text-decoration: none;
+      line-height: 100%;
     }
   }
 

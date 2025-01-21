@@ -6,8 +6,8 @@ export const getBooks = async () => {
 }
 
 export const getBook = async (id: number) => {
-  const { data } = await $authHost.get(`api/v1/client/books/${id}`);
-  return { data };
+  const response = await $authHost.get(`api/v1/client/books/${id}`);
+  return response.data;
 }
 
 export const searchBooks = async (query: string) => {
