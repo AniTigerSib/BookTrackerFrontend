@@ -56,12 +56,12 @@ onMounted(async () => {
   //   await authStore.logout(false);
   //   await router.push('/login');
   // } else {
-  //   getBookInfo();
+  //   await getBookInfo();
   // }
   book.value = {
     id: id,
     name: 'Война и мир',
-    cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+    cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
     avgRating: 8.1,
     category: 'Популярное',
     author: 'Лев Толстой',

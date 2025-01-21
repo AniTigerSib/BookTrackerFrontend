@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import "@/assets/books-shared.scss"
 import BookCard from '../components/BookCard.vue';
 import {onMounted, type Ref, ref} from "vue";
 import {useRouter} from "vue-router";
@@ -36,22 +37,22 @@ onMounted(async () => {
     books: [{
       id: 1,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }, {
       id: 2,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }, {
       id: 3,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }, {
       id: 4,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }]
   },
@@ -61,7 +62,7 @@ onMounted(async () => {
     books: [{
       id: 5,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 5
     }, {
       id: 6,
@@ -71,21 +72,21 @@ onMounted(async () => {
     }, {
       id: 7,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 5
     }, {
       id: 8,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }, {
       id: 9,
       name: 'Война и мир',
-      cover: 'https://images-na.ssl-images-amazon.com/images/I/51-38846-X-L._AC_SX184_.jpg',
+      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
       avgRating: 8.1
     }]
   });
-})
+});
 </script>
 
 <template>
@@ -100,37 +101,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.home-view {
-  margin-top: 2.5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 6.25rem;
-
-  &__item {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-}
-
-.item {
-  &__title {
-    font-size: 2.4rem;
-    font-weight: 700;
-  }
-
-  &__books-container {
-    //display: flex;
-    //flex-wrap: wrap;
-    //gap: 30px 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
-    column-gap: 0.625rem;
-    row-gap: 2.5rem;
-    width: 100%;
-  }
-}
-</style>

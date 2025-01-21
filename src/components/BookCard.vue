@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import {useBookStore} from "@/stores/books.ts";
+
+const bookStore = useBookStore();
+</script>
+
 <template>
-  <div class="book-card">
+  <div class="book-card" @click="bookStore.openBookPage(book.id)">
     <div class="book-card__cover-container">
       <img
         :src="book.cover"

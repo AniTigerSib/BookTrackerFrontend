@@ -16,13 +16,13 @@ export const searchBooks = async (query: string) => {
 }
 
 export const getBooklist = async () => {
-  const { data } = await $authHost.get('api/v1/client/booklist');
-  return { data };
+  const response = await $authHost.get('api/v1/client/booklist');
+  return response.data;
 }
 
-export const getReadBooks = async () => {
-  const { data } = await $authHost.get('api/v1/client/books/read');
-  return { data };
+export const getRead = async () => {
+  const response = await $authHost.get('api/v1/client/books/read');
+  return response.data;
 }
 
 export const rateBook = async (id: number, rate: number) => {
