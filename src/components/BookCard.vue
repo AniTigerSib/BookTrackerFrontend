@@ -8,8 +8,7 @@
         @error="handleImageError"
       >
       <div class="book-card__rating">
-        <span class="book-card__rating-value">{{ book.rating }}</span>
-        <span class="book-card__rating-star">★</span>
+        <p class="book-card__rating-value">{{ book.rating }}</p>
       </div>
     </div>
     <h3 class="book-card__title">{{ book.title }}</h3>
@@ -19,13 +18,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-
-interface Book {
-  id: number;
-  title: string;
-  coverUrl: string;
-  rating: number;
-}
+import type { Book } from '@/types';
 
 export default defineComponent({
   name: 'BookCard',
@@ -33,21 +26,12 @@ export default defineComponent({
     book: {
       type: Object as PropType<Book>,
       required: true,
-      validator: (book: Book): boolean => {
-        return Boolean(
-          book.title &&
-          typeof book.coverUrl === 'string' &&
-          typeof book.rating === 'number' &&
-          book.rating >= 0 &&
-          book.rating <= 10
-        );
-      }
     }
   },
   methods: {
     handleImageError(e: Event): void {
       const target = e.target as HTMLImageElement;
-      target.src = '/images/default-cover.jpg';
+      target.src = 'https://cdn.litres.ru/pub/c/cover/66691848.jpg';
     }
   }
 })
@@ -55,59 +39,55 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .book-card {
-  width: 200px;
-  margin: 16px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.book-card:hover {
-  transform: translateY(-4px);
-}
-
-.book-card__cover-container {
-  position: relative;
-  width: 100%;
-  height: 300px;
-}
-
-.book-card__cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.book-card__rating {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 4px 8px;
-  border-radius: 16px;
+  width: 24rem;
   display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.book-card__rating-value {
-  font-weight: bold;
-  color: #333;
-}
-
-.book-card__rating-star {
-  color: #ffd700;
-}
-
-.book-card__title {
-  padding: 12px;
-  margin: 0;
-  font-size: 16px;
-  color: #333;
-  text-align: center;
-  white-space: nowrap;
+  flex-direction: column;
+  gap: 1.1rem;
   overflow: hidden;
-  text-overflow: ellipsis;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    cursor: pointer;
+  }
+
+  &__cover-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  &__cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__rating {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  &__rating-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  &__title {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--color-text);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 </style>

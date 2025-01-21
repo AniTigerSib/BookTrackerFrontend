@@ -26,7 +26,10 @@ const authStore = useAuthStore();
             Найден пользователь с таким логином.
           </small>
         </div>
-        <button @click="authStore.register">Создать аккаунт</button>
+        <button
+          @click="authStore.register"
+          :disabled="authStore.isLoginIncorrect || authStore.loading"
+        >Создать аккаунт</button>
       </form>
       <p>Уже есть аккаунт? <RouterLink to="/login">Войти</RouterLink></p>
     </div>

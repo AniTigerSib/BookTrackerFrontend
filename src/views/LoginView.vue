@@ -40,7 +40,10 @@ const login = async () => {
           Неверный логин или пароль.
         </small>
       </div>
-      <button type="submit">Войти</button>
+      <button
+        type="submit"
+        :disabled="authStore.isLoginIncorrect || authStore.loading"
+      >Войти</button>
     </form>
     <p>Нет аккаунта? <RouterLink to="/register">Зарегистрироваться</RouterLink></p>
   </div>

@@ -19,10 +19,11 @@ import FooterComponent from "@/components/FooterComponent.vue";
 .bg-container {
   width: 100%;
   height: 100%;
+  padding-bottom: 100px;
   background-color: var(--color-background);
 }
 .content {
-  max-width: 1280px;
+  max-width: 1180px;
   width: 100%;
   margin: 0 auto;
   display: flex;

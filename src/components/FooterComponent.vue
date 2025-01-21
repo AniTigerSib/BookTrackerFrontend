@@ -20,7 +20,7 @@
   color: var(--color-text-secondary);
 
   &__container {
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 1.2rem 0;
     display: flex;

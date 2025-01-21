@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
   const password = ref('');
   const authError = ref('');
   const isLoginIncorrect = ref(false);
-  const loading = ref(!!accessToken.value);
+  const isLoading = ref(!!accessToken.value);
   const isLoggedIn = ref(!!accessToken.value);
 
   // Флаг для отслеживания первого редактирования
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const register = async () => {
     try {
-      loading.value = true;
+      isLoading.value = true;
       isFirstEdit.value = true;
       await registerApi(username.value, password.value);
     } catch (e: any) {
@@ -40,13 +40,13 @@ export const useAuthStore = defineStore('auth', () => {
         isLoginIncorrect.value = true;
       }
     } finally {
-      loading.value = false;
+      isLoading.value = false;
     }
   }
 
   const login = async () => {
     try {
-      loading.value = true;
+      isLoading.value = true;
       isFirstEdit.value = true;
       const { data } = await loginApi(username.value, password.value);
       accessToken.value = data.accessToken;
@@ -60,12 +60,12 @@ export const useAuthStore = defineStore('auth', () => {
         isLoginIncorrect.value = true;
       }
     } finally {
-      loading.value = false;
+      isLoading.value = false;
     }
   }
 
   const logout = async (sendRequest: boolean) => {
-    loading.value = false;
+    isLoading.value = false;
     isFirstEdit.value = false;
     accessToken.value = undefined;
     refreshToken.value = undefined;
@@ -74,12 +74,12 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn.value = false;
     if (sendRequest) {
       try {
-        loading.value = true;
+        isLoading.value = true;
         await logoutApi();
       } catch (e) {
         console.log(e);
       } finally {
-        loading.value = false;
+        isLoading.value = false;
       }
     }
   }
@@ -90,7 +90,7 @@ export const useAuthStore = defineStore('auth', () => {
     username,
     password,
     authError,
-    loading,
+    loading: isLoading,
     isLoggedIn,
     isLoginIncorrect,
     register,

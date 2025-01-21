@@ -12,7 +12,7 @@ const authStore = useAuthStore();
 <header class="header">
   <div class="header__container">
     <div class="header__logo">
-      <p>Книголюб</p>
+      <p><RouterLink to="/">Книголюб</RouterLink></p>
     </div>
     <SearchBar v-if="authStore.isLoggedIn" />
     <div class="header__menu">
@@ -32,7 +32,7 @@ const authStore = useAuthStore();
   width: 100%;
 
   &__container {
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
     min-height: 60px;
     display: flex;
@@ -44,8 +44,11 @@ const authStore = useAuthStore();
   &__logo {
     font-size: 2.2rem;
     font-weight: 800;
-    text-decoration: none;
-    color: var(--color-text);
+
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
   }
 
   &__menu {

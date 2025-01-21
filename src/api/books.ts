@@ -1,8 +1,8 @@
 import { $authHost } from '@/api/index';
 
 export const getBooks = async () => {
-  const { data } = await $authHost.get('api/v1/client/books');
-  return { data };
+  const response = await $authHost.get('api/v1/client/books');
+  return response.data;
 }
 
 export const getBook = async (id: number) => {
