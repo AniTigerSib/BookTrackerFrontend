@@ -23,7 +23,12 @@ const router = createRouter({
       path: '/book/:id',
       name: 'book',
       component: () => import(/* webpackChunkName: "book" */ '../views/BookPageView.vue')
-    }
+    },
+    {
+      path: '/favourites',
+      name: 'favourites',
+      component: () => import(/* webpackChunkName: "favourites" */ '../views/FavouritesView.vue')
+    },
     // {
     //   path: '/about',
     //   name: 'about',

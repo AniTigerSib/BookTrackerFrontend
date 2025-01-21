@@ -4,6 +4,9 @@ import {useAuthStore} from "@/stores/auth.ts";
 import IconList from "@/components/icons/IconList.vue";
 import IconLogout from "@/components/icons/IconLogout.vue";
 import IconUser from "@/components/icons/IconUser.vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const authStore = useAuthStore();
 </script>
@@ -16,9 +19,9 @@ const authStore = useAuthStore();
     </div>
     <SearchBar v-if="authStore.isLoggedIn" />
     <div class="header__menu">
-      <IconList v-if="authStore.isLoggedIn"/>
-      <IconLogout v-if="authStore.isLoggedIn" v-on:click="authStore.isLoggedIn = false"/>
-      <IconUser v-else v-on:click="authStore.isLoggedIn = true"/>
+      <IconList v-if="authStore.isLoggedIn" v-on:click="router.push('/favourites');" />
+      <IconLogout v-if="authStore.isLoggedIn" v-on:click="authStore.isLoggedIn = false;"/>
+      <IconUser v-else v-on:click="authStore.isLoggedIn = true;"/>
     </div>
   </div>
 </header>

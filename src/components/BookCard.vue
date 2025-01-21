@@ -5,7 +5,7 @@ const bookStore = useBookStore();
 </script>
 
 <template>
-  <div class="book-card" @click="bookStore.openBookPage(book.id)">
+  <div class="book-card" v-on:click="bookStore.openBookPage(book.id)">
     <div class="book-card__cover-container">
       <img
         :src="book.cover"
