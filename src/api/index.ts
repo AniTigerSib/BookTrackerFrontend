@@ -2,6 +2,7 @@ import axios from 'axios';
 import type { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import {refreshApi} from "@/api/user.ts";
 import { useAuthStore } from "@/stores/auth.ts";
+import router from "@/router";
 
 const $host = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -38,6 +39,8 @@ $authHost.interceptors.response.use((response: AxiosResponse) => {
       await authStore.logout(false);
       // await router.push('/login');
     }
+  } else if (error.response?.status === 404) {
+    await router.push({name: 'NotFound'});
   }
 
   console.log(error.response.data);

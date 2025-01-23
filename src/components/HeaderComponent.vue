@@ -9,6 +9,11 @@ import {useRouter} from "vue-router";
 const router = useRouter()
 
 const authStore = useAuthStore();
+
+const logout = async () => {
+  await authStore.logout(true);
+  await router.push('/login');
+}
 </script>
 
 <template>
@@ -20,8 +25,8 @@ const authStore = useAuthStore();
     <SearchBar v-if="authStore.isLoggedIn" />
     <div class="header__menu">
       <IconList v-if="authStore.isLoggedIn" v-on:click="router.push('/favourites');" />
-      <IconLogout v-if="authStore.isLoggedIn" v-on:click="authStore.isLoggedIn = false;"/>
-      <IconUser v-else v-on:click="authStore.isLoggedIn = true;"/>
+      <IconLogout v-if="authStore.isLoggedIn" v-on:click="logout();"/>
+      <IconUser v-else v-on:click="router.push('/login');"/>
     </div>
   </div>
 </header>

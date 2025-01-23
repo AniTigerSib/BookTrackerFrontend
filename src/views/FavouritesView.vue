@@ -48,13 +48,13 @@ const getReadBooks = async () => {
 }
 
 onMounted(async () => {
-  // if (!authStore.isLoggedIn) {
-  //   await authStore.logout(false);
-  //   await router.push('/login');
-  // } else {
-  //   await getBooklistBooks();
-  //   await getReadBooks();
-  // }
+  if (!authStore.isLoggedIn) {
+    await authStore.logout(false);
+    await router.push('/login');
+  } else {
+    await getBooklistBooks();
+    await getReadBooks();
+  }
 });
 </script>
 

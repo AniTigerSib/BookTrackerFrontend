@@ -3,6 +3,7 @@ export interface Book {
   name: string;
   cover: string;
   avgRating: number;
+  isRead: boolean;
 }
 
 export interface BookExtended extends Book {
@@ -13,6 +14,7 @@ export interface BookExtended extends Book {
   originalName: string;
   pages: number;
   abstract: string;
+  isInBooklist: boolean;
 }
 
 export interface BookByCategory {

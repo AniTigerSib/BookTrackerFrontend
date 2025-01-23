@@ -26,66 +26,77 @@ const getAllBooks = async () => {
 }
 
 onMounted(async () => {
-  // if (!authStore.isLoggedIn) {
-  //   await authStore.logout(false);
-  //   await router.push('/login');
-  // }
-  booksByCat.value.push(
-    {
-    id: 1,
-    name: 'Популярное',
-    books: [{
-      id: 1,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }, {
-      id: 2,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }, {
-      id: 3,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }, {
-      id: 4,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }]
-  },
-    {
-    id: 2,
-    name: 'Не самое популярное',
-    books: [{
-      id: 5,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 5
-    }, {
-      id: 6,
-      name: 'Думай медленно решай быстро',
-      cover: 'https://cdn.litres.ru/pub/c/cover_415/21636519.webp',
-      avgRating: 7.2
-    }, {
-      id: 7,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 5
-    }, {
-      id: 8,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }, {
-      id: 9,
-      name: 'Война и мир',
-      cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-      avgRating: 8.1
-    }]
-  });
+  if (!authStore.isLoggedIn) {
+    await authStore.logout(false);
+    await router.push('/login');
+  } else {
+    await getAllBooks();
+    // booksByCat.value.push(
+    //   {
+    //   id: 1,
+    //   name: 'Популярное',
+    //   books: [{
+    //     id: 1,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: false
+    //   }, {
+    //     id: 2,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: false
+    //   }, {
+    //     id: 3,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: true
+    //   }, {
+    //     id: 4,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: true
+    //   }]
+    // },
+    //   {
+    //   id: 2,
+    //   name: 'Не самое популярное',
+    //   books: [{
+    //     id: 5,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 5,
+    //     isRead: false
+    //   }, {
+    //     id: 6,
+    //     name: 'Думай медленно решай быстро',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover_415/21636519.webp',
+    //     avgRating: 7.2,
+    //     isRead: false
+    //   }, {
+    //     id: 7,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 5,
+    //     isRead: false
+    //   }, {
+    //     id: 8,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: false
+    //   }, {
+    //     id: 9,
+    //     name: 'Война и мир',
+    //     cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //     avgRating: 8.1,
+    //     isRead: false
+    //   }]
+    // });
+  }
 });
 </script>
 

@@ -3,7 +3,7 @@ import {onMounted, ref} from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import {useAuthStore} from "@/stores/auth.ts";
 import type {BookExtended} from "@/types";
-import {getBook} from "@/api/books.ts";
+import {booklistBook, getBook, readBook} from "@/api/books.ts";
 import type {AxiosError} from "axios";
 import IconBookmark from "@/components/icons/IconBookmark.vue";
 import IconDone from "@/components/icons/IconDone.vue";
@@ -28,10 +28,10 @@ const book = ref<BookExtended>({
   year: 0,
   pages: 0,
   language: '',
+  isRead: false,
+  isInBooklist: false,
 });
 const isError = ref(!book.value);
-const isInBooklist = ref<boolean>(false);
-const isRead = ref<boolean>(false);
 
 const getBookInfo = async () => {
   try {
@@ -46,36 +46,66 @@ const getBookInfo = async () => {
   }
 }
 
+const addToBooklist = async () => {
+  try {
+    // isLoading.value = true;
+    const updatedBook = (await booklistBook(book.value.id)) as BookExtended;
+    book.value = { ...book.value, ...updatedBook };
+    // isError.value = false;
+  } catch (e) {
+    isError.value = true;
+    console.log((e as AxiosError).response);
+  } finally {
+    // isLoading.value = false;
+  }
+}
+
+const addToReadBook = async () => {
+  try {
+    // isLoading.value = true;
+    const updatedBook = (await readBook(book.value.id)) as BookExtended;
+    book.value = { ...book.value, ...updatedBook };
+    // isError.value = false;
+  } catch (e) {
+    isError.value = true;
+    console.log((e as AxiosError).response);
+  } finally {
+    // isLoading.value = false;
+  }
+}
+
 function handleImageError(e: Event): void {
   const target = e.target as HTMLImageElement;
   target.src = 'https://cdn.litres.ru/pub/c/cover/66691848.jpg';
 }
 
 onMounted(async () => {
-  // if (!authStore.isLoggedIn) {
-  //   await authStore.logout(false);
-  //   await router.push('/login');
-  // } else {
-  //   await getBookInfo();
-  // }
-  book.value = {
-    id: id,
-    name: 'Война и мир',
-    cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
-    avgRating: 8.1,
-    category: 'Популярное',
-    author: 'Лев Толстой',
-    language: 'Русский',
-    year: 1869,
-    originalName: 'Война и мир',
-    pages: 1225,
-    abstract: `Роман «Война и мир», одно из величайших произведений русской и мировой литературы, создавался Л.Н. Толстым на протяжении шести лет, восемь раз переписывался, а отдельные эпизоды – более двадцати раз. Исследователи насчитывают пятнадцать вариантов одного только начала романа. В данной книге использована вторая редакция «Войны и мира» (1873 год), наиболее полная и удобная для чтения, поскольку Толстой перевёл на русский весь французский текст романа.\n\nКнига снабжена большим количеством иллюстраций, показывающих прототипов главных героев, исторических персонажей, а также хронику нашествия Наполеона на Россию. Развернутые комментарии к ним дал российский литературовед, доктор филологических наук Борис Соколов. Из этих комментариев можно узнать много интересных и неожиданных подробностей об исторической канве «Войны и мира».`
+  if (!authStore.isLoggedIn) {
+    await authStore.logout(false);
+    await router.push('/login');
+  } else {
+    await getBookInfo();
+    // book.value = {
+    //   id: id,
+    //   name: 'Война и мир',
+    //   cover: 'https://cdn.litres.ru/pub/c/cover/66691848.jpg',
+    //   avgRating: 8.1,
+    //   category: 'Популярное',
+    //   author: 'Лев Толстой',
+    //   language: 'Русский',
+    //   year: 1869,
+    //   originalName: 'Война и мир',
+    //   pages: 1225,
+    //   abstract: `Роман «Война и мир», одно из величайших произведений русской и мировой литературы, создавался Л.Н. Толстым на протяжении шести лет, восемь раз переписывался, а отдельные эпизоды – более двадцати раз. Исследователи насчитывают пятнадцать вариантов одного только начала романа. В данной книге использована вторая редакция «Войны и мира» (1873 год), наиболее полная и удобная для чтения, поскольку Толстой перевёл на русский весь французский текст романа.\n\nКнига снабжена большим количеством иллюстраций, показывающих прототипов главных героев, исторических персонажей, а также хронику нашествия Наполеона на Россию. Развернутые комментарии к ним дал российский литературовед, доктор филологических наук Борис Соколов. Из этих комментариев можно узнать много интересных и неожиданных подробностей об исторической канве «Войны и мира».`,
+    //   isRead: false,
+    //   isInBooklist: false,
+    // }
   }
 })
 </script>
 
 <template>
-<div class="book-page" v-if="!isError">
+<div class="book-page" v-if="!isError && !isLoading">
   <div class="book-page__main">
     <div class="book-page__cover-container">
       <img
@@ -105,19 +135,19 @@ onMounted(async () => {
         <p>Страниц: {{ book.pages }}</p>
       </div>
       <div class="info__buttons-container">
-        <button class="info__button-booklist" v-if="!isInBooklist" @click="isInBooklist = !isInBooklist">
+        <button class="info__button-booklist" v-if="!book.isInBooklist" v-on:click="addToBooklist();">
           <IconBookmark />
           <span>Добавить в избранное</span>
         </button>
-        <button class="info__button-booklist active" v-else @click="isInBooklist = !isInBooklist">
+        <button class="info__button-booklist active" v-else v-on:click="addToBooklist();">
           <IconBookmarkFilled />
           <span>Добавлено в избранное</span>
         </button>
-        <button class="info__button-done" v-if="!isRead" @click="isRead = !isRead">
+        <button class="info__button-done" v-if="!book.isRead" v-on:click="addToReadBook();">
           <IconDone />
           Прочитано
         </button>
-        <button class="info__button-done active" v-else @click="isRead = !isRead">
+        <button class="info__button-done active" v-else v-on:click="addToReadBook();">
           <IconDoneFilled />
           Прочитано
         </button>

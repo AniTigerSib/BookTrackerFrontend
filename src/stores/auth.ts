@@ -8,20 +8,14 @@ export const useAuthStore = defineStore('auth', () => {
   const username = ref('');
   const password = ref('');
   const authError = ref('');
-  const isLoginIncorrect = ref(false);
+  const isLoginIncorrect = ref<boolean>(false);
   const isLoading = ref(!!accessToken.value);
   const isLoggedIn = ref(!!accessToken.value);
 
-  // Флаг для отслеживания первого редактирования
-  const isFirstEdit = ref(true);
-
   // Функция сброса ошибок
   const resetErrors = () => {
-    if (isFirstEdit.value) {
-      authError.value = '';
-      isLoginIncorrect.value = false;
-      isFirstEdit.value = false;
-    }
+    authError.value = '';
+    isLoginIncorrect.value = false;
   };
 
   // Отслеживаем изменения username и password
@@ -32,7 +26,6 @@ export const useAuthStore = defineStore('auth', () => {
   const register = async () => {
     try {
       isLoading.value = true;
-      isFirstEdit.value = true;
       await registerApi(username.value, password.value);
     } catch (e: any) {
       authError.value = e.response.data || 'Something went wrong';
@@ -47,7 +40,6 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async () => {
     try {
       isLoading.value = true;
-      isFirstEdit.value = true;
       const { data } = await loginApi(username.value, password.value);
       accessToken.value = data.accessToken;
       refreshToken.value = data.refreshToken;
@@ -65,13 +57,6 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const logout = async (sendRequest: boolean) => {
-    isLoading.value = false;
-    isFirstEdit.value = false;
-    accessToken.value = undefined;
-    refreshToken.value = undefined;
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    isLoggedIn.value = false;
     if (sendRequest) {
       try {
         isLoading.value = true;
@@ -82,6 +67,12 @@ export const useAuthStore = defineStore('auth', () => {
         isLoading.value = false;
       }
     }
+    isLoading.value = false;
+    accessToken.value = undefined;
+    refreshToken.value = undefined;
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    isLoggedIn.value = false;
   }
 
   return {

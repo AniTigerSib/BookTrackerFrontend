@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'favourites',
       component: () => import(/* webpackChunkName: "favourites" */ '../views/FavouritesView.vue')
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import(/* webpackChunkName: "notFound" */ '../views/NotFoundPageView.vue')
+    }
     // {
     //   path: '/about',
     //   name: 'about',

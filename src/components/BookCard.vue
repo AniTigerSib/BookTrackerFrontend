@@ -14,7 +14,7 @@ const bookStore = useBookStore();
         @error="handleImageError"
       >
       <div class="book-card__rating">
-        <p class="book-card__rating-value">{{ book.avgRating }}</p>
+        <p class="book-card__rating-value">{{ bookStore.limitDecimal(book.avgRating) }}</p>
       </div>
     </div>
     <h3 class="book-card__title">{{ book.name }}</h3>
